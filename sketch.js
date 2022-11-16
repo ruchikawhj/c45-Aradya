@@ -78,7 +78,7 @@ function draw() {
 
   background("skyblue");
 
-  console.log(getFrameRate())
+
   
   if(gameState==="play"){
   score+=Math.round(getFrameRate()/60)
@@ -116,8 +116,13 @@ balloon.changeAnimation("collided");
 balloon.velocityY=0;
 BobsGroup.setVelocityXEach(0);
 TopObsGroup.setVelocityXEach(0);
+collectObsGroup.setVelocityXEach(0);
+
 BobsGroup.setLifetimeEach(-1);
-TopObsGroup.setLifetimeEach(-1)
+TopObsGroup.setLifetimeEach(-1);
+collectObsGroup.setLifetimeEach(-1);
+
+
 gameOver.depth=BobsGroup.depth+2;
 restart.depth=BobsGroup.depth+2;
 gameOver.visible=true;
@@ -149,8 +154,8 @@ function spawnBottomObs() {
     }
 
     bottom.scale = 0.15;
-    bottom.velocityX = -4;
-    bottom.lifetime = 400; 
+    bottom.velocityX =-(4+Math.round(score/100));
+    bottom.lifetime = 500; 
 
     BobsGroup.add(bottom);
   }
@@ -169,9 +174,9 @@ function spawnTopObs() {
     }
 
     top.y = Math.round(random(40, 100));
-    top.scale = 0.1;
-    top.velocityX = -4;
-    top.lifetime = 400; 
+    top.scale = 0.15;
+    top.velocityX = -(4+Math.round(score/100));
+    top.lifetime = 500; 
 
     TopObsGroup.add(top);
   }
@@ -187,19 +192,23 @@ function spawnCollectables() {
       break 
 
       case 2 : collect.addImage(c2);
-      collect.scale = 0.3;
+      collect.scale = 0.4;
       break 
 
       case 3 : collect.addImage(c3);
-      collect.scale = 0.4;
+      collect.scale = 0.45;
       break 
     }
 
     collect.y = Math.round(random(100, height/2));
     
-    collect.velocityX = -4;
-    collect.lifetime = 400; 
+    collect.velocityX = -(4+Math.round(score/100));
+    collect.lifetime = 500; 
 
     collectObsGroup.add(collect);
   }
+}
+
+function reset(){
+
 }
